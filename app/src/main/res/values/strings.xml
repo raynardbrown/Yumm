@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Yumm</string>
+    
+    <!-- Recipe list item strings -->
+    <string name="recipe_list_item_servings_label">Servings: </string>
+
+    <!-- Recipe list item sample strings -->
+    <string name="sample_recipe_list_item_title">A Really Yummy Food Recipe</string>
+    <string name="sample_recipe_list_item_number_of_servings">10</string>
+</resources>
