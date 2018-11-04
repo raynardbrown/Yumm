@@ -1,10 +1,79 @@
 <resources>
     <string name="app_name">Yumm</string>
-    
+
+    <!-- ExoPlayer agent string -->
+    <string name="exo_player_app_agent_string">Yumm Agent</string>
+
     <!-- Recipe list item strings -->
     <string name="recipe_list_item_servings_label">Servings: </string>
 
     <!-- Recipe list item sample strings -->
     <string name="sample_recipe_list_item_title">A Really Yummy Food Recipe</string>
     <string name="sample_recipe_list_item_number_of_servings">10</string>
+
+    <!-- Keys for intent extra data -->
+
+    <!-- Used for passing around a Recipe object -->
+    <string name="recipe_type_key">recipe_type</string>
+
+    <!-- Used for passing around a RecipeStep object -->
+    <string name="recipe_step_type_key">recipe_step_type</string>
+
+    <!-- Hint that tells us whether we are using a tablet for phone sized device -->
+    <string name="layout_size_hint_key">layout_size_hint</string>
+
+    <!-- The position of a click within the master list -->
+    <string name="master_list_index_key">master_list_index</string>
+
+    <!-- Position of a click within a list of recipe steps -->
+    <string name="recipe_step_index_key">recipe_step_index</string>
+
+    <!-- Recipe video strings -->
+    <string name="recipe_step_video_playback_window_key">recipe_step_video_playback_window</string>
+    <string name="recipe_step_video_playback_position_key">recipe_step_video_playback_position</string>
+
+    <!-- UI Strings -->
+
+    <string name="recipe_ingredients_label" translatable="true">Recipe Ingredients</string>
+
+    <!-- Recipe URL -->
+    <string name="recipe_data_url">http://go.udacity.com/android-baking-app-json</string>
+
+    <!-- Sample strings -->
+    <string name="sample_long_string">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+        do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+        anim id est laborum.</string>
+
+    <!-- Recipe test strings -->
+    <string name="recipe_one_name_string">Nutella Pie</string>
+    <string name="recipe_two_name_string">Brownies</string>
+    <string name="recipe_three_name_string">Yellow Cake</string>
+    <string name="recipe_four_name_string">Cheesecake</string>
+
+    <!-- Recipe JSON strings -->
+    <string name="json_recipe_id_string">id</string>
+    <string name="json_recipe_name_string">name</string>
+    <string name="json_recipe_servings_string">servings</string>
+    <string name="json_recipe_image_string">image</string>
+    <string name="json_recipe_ingredients_string">ingredients</string>
+    <string name="json_recipe_ingredients_quantity_string">quantity</string>
+    <string name="json_recipe_ingredients_measure_string">measure</string>
+    <string name="json_recipe_ingredients_ingredient_name_string">ingredient</string>
+    <string name="json_recipe_steps_string">steps</string>
+    <string name="json_recipe_steps_id_string">id</string>
+    <string name="json_recipe_steps_short_description_string">shortDescription</string>
+    <string name="json_recipe_steps_description_string">description</string>
+    <string name="json_recipe_steps_video_url_string">videoURL</string>
+    <string name="json_recipe_steps_thumbnail_url_string">thumbnailURL</string>
+
+    <string name="recipe_card_network_error_string">Network error, check connection</string>
+    <string name="recipe_step_image_content_description_string">Recipe step image</string>
+    <string name="recipe_card_fragment_previous_button_label">Previous step</string>
+    <string name="recipe_card_fragment_next_button_label">Next step</string>
+    <string name="recipe_card_ingredients_fragment_ingredient_label">Ingredients</string>
+    <string name="recipe_card_list_item_image_content_description">Recipe image</string>
+    <string name="widget_empty_database_error_string">There are no recipes currently in the database.</string>
 </resources>
