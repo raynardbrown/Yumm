@@ -1,16 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Fragment that displays the list of recipes in the master portion of the master/detail flow -->
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_recipe_card_fragment"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_recipe_card_fragment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/tv_recipe_card_network_error"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/recipe_card_network_error_string"
+                android:textSize="32sp"
+                android:visibility="gone"/>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 </layout>
