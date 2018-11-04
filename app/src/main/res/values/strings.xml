@@ -19,6 +19,9 @@
     <!-- Used for passing around a RecipeStep object -->
     <string name="recipe_step_type_key">recipe_step_type</string>
 
+    <!-- Used for passing around a RecipeIngredient list object -->
+    <string name="recipe_ingredient_list_type_key">recipe_ingredient_list_type</string>
+
     <!-- Hint that tells us whether we are using a tablet for phone sized device -->
     <string name="layout_size_hint_key">layout_size_hint</string>
 
@@ -28,9 +31,13 @@
     <!-- Position of a click within a list of recipe steps -->
     <string name="recipe_step_index_key">recipe_step_index</string>
 
+    <!-- Last recipe viewed for the widget -->
+    <string name="selected_recipe_for_widget_key">selected_recipe_for_widget</string>
+
     <!-- Recipe video strings -->
     <string name="recipe_step_video_playback_window_key">recipe_step_video_playback_window</string>
     <string name="recipe_step_video_playback_position_key">recipe_step_video_playback_position</string>
+    <string name="recipe_step_video_playback_play_when_ready_key">recipe_step_video_playback_play_when_ready</string>
 
     <!-- UI Strings -->
 
