@@ -19,11 +19,31 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".view.RecipeCardDetailActivity">
+
+        <!-- Child of MainActivity -->
+        <!-- singleTop so the intent is not wiped out when we press back -->
+        <activity android:name=".view.RecipeCardDetailActivity"
+                  android:parentActivityName=".view.MainActivity"
+                  android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.MainActivity"/>
         </activity>
-        <activity android:name=".view.RecipeCardDetailStepActivity">
+
+        <!-- Child of RecipeCardDetailActivity -->
+        <activity android:name=".view.RecipeCardDetailStepActivity"
+                  android:parentActivityName=".view.RecipeCardDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.RecipeCardDetailActivity"/>
         </activity>
-        <activity android:name=".view.RecipeCardIngredientActivity">
+
+        <!-- Child of RecipeCardDetailActivity -->
+        <activity android:name=".view.RecipeCardIngredientActivity"
+                  android:parentActivityName=".view.RecipeCardDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.RecipeCardDetailActivity"/>
         </activity>
 
         <receiver android:name=".widgets.YummWidgetProvider">
