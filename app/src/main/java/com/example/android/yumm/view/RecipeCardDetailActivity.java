@@ -1,8 +1,7 @@
 package com.example.android.yumm.view;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,22 +47,21 @@ public class RecipeCardDetailActivity extends AppCompatActivity implements IReci
       if(YummUtils.isTabletSizedDevice(this))
       {
         // tablet layout
-
         layoutSizeHint = YummConstants.TABLET_SIZED_DEVICE;
 
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        // configuration change, check fragment configuration
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
-        if(masterListIndex == 0)
+        Fragment ingredientFragment = fragmentManager.findFragmentById(R.id.recipe_card_ingredient_fragment);
+        Fragment stepFragment = fragmentManager.findFragmentById(R.id.recipe_card_detail_step_fragment);
+
+        if(ingredientFragment != null)
         {
-          // Init the ingredients fragment
-          registerIngredientFragment();
+          recipeCardIngredientFragment = (RecipeCardIngredientFragment)ingredientFragment;
         }
-        else
+        else if(stepFragment != null)
         {
-          // Init the step fragment
-          registerRecipeStepFragment();
-
-          updateRecipeStepFragment();
+          recipeCardDetailStepFragment = (RecipeCardDetailStepFragment)stepFragment;
         }
       }
       else
@@ -96,10 +94,13 @@ public class RecipeCardDetailActivity extends AppCompatActivity implements IReci
       if(layoutSizeHint == YummConstants.TABLET_SIZED_DEVICE)
       {
         // tablet layout
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-
         registerIngredientFragment();
       }
+    }
+
+    if(getSupportActionBar() != null)
+    {
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
   }
 
@@ -118,20 +119,20 @@ public class RecipeCardDetailActivity extends AppCompatActivity implements IReci
     // create the fragment (detail flow)
     FragmentManager fragmentManager = getSupportFragmentManager();
 
-    recipeCardIngredientFragment = new RecipeCardIngredientFragment();
-    recipeCardIngredientFragment.setRecipeIngredientList(recipe.getRecipeIngredients());
+    Fragment fragment = fragmentManager.findFragmentById(R.id.recipe_card_ingredient_fragment);
 
-    if(flag)
+    if(fragment == null)
     {
+      recipeCardIngredientFragment = new RecipeCardIngredientFragment();
+      recipeCardIngredientFragment.setRecipeIngredientList(recipe.getRecipeIngredients());
+
       fragmentManager.beginTransaction()
-              .add(R.id.detail_step_flow_fragment, recipeCardIngredientFragment)
+              .replace(R.id.detail_step_flow_fragment, recipeCardIngredientFragment)
               .commit();
     }
     else
     {
-      fragmentManager.beginTransaction()
-              .replace(R.id.detail_step_flow_fragment, recipeCardIngredientFragment)
-              .commit();
+      recipeCardIngredientFragment = (RecipeCardIngredientFragment)fragment;
     }
 
     recipeCardDetailStepFragment = null;
@@ -151,23 +152,26 @@ public class RecipeCardDetailActivity extends AppCompatActivity implements IReci
   {
     FragmentManager fragmentManager = getSupportFragmentManager();
 
-    recipeCardDetailStepFragment = new RecipeCardDetailStepFragment();
+    Fragment fragment = fragmentManager.findFragmentById(R.id.recipe_card_detail_step_fragment);
 
-    recipeCardDetailStepFragment.setOrientation(Configuration.ORIENTATION_LANDSCAPE);
-
-    recipeCardDetailStepFragment.setLayoutSizeHint(layoutSizeHint);
-
-    if(flag)
+    if(fragment == null)
     {
+      recipeCardDetailStepFragment = new RecipeCardDetailStepFragment();
+
+      recipeCardDetailStepFragment.setOrientation(getResources().getConfiguration().orientation);
+
+      recipeCardDetailStepFragment.setLayoutSizeHint(layoutSizeHint);
+
+      updateRecipeStepFragment();
+
       fragmentManager.beginTransaction()
-              .add(R.id.detail_step_flow_fragment, recipeCardDetailStepFragment)
+              .replace(R.id.detail_step_flow_fragment, recipeCardDetailStepFragment)
               .commit();
     }
     else
     {
-      fragmentManager.beginTransaction()
-              .replace(R.id.detail_step_flow_fragment, recipeCardDetailStepFragment)
-              .commit();
+      recipeCardDetailStepFragment = (RecipeCardDetailStepFragment)fragment;
+      updateRecipeStepFragment();
     }
 
     recipeCardIngredientFragment = null;
@@ -232,13 +236,8 @@ public class RecipeCardDetailActivity extends AppCompatActivity implements IReci
       {
         // A step was clicked
 
-        // Initialize the step fragment (if it is not already initialized) and populate it
-        if(recipeCardDetailStepFragment == null)
-        {
-          replaceCurrentFragmentWithRecipeStepFragment();
-        }
-
-        updateRecipeStepFragment();
+        // Initialize the step fragment and populate it
+        replaceCurrentFragmentWithRecipeStepFragment();
       }
     }
     else
