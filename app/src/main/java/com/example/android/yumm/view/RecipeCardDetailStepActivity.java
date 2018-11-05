@@ -92,6 +92,11 @@ public class RecipeCardDetailStepActivity extends AppCompatActivity implements I
     }
 
     setButtonState();
+
+    if(getSupportActionBar() != null)
+    {
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
   }
 
   @Override
