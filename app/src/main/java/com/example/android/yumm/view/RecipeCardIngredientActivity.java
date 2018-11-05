@@ -22,6 +22,12 @@ public class RecipeCardIngredientActivity extends AppCompatActivity
     recipe = intent.getParcelableExtra(getString(R.string.recipe_type_key));
 
     setContentView(R.layout.activity_recipe_card_ingredient);
+
+    if(getSupportActionBar() != null)
+    {
+      getSupportActionBar().setTitle(recipe.getName());
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
   }
 
   @Override
