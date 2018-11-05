@@ -5,8 +5,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -64,8 +65,6 @@ public class MainActivity extends AppCompatActivity implements IRecipeCardListIt
     // Check to see if we are working with a tablet sized device
     if(YummUtils.isTabletSizedDevice(this))
     {
-      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-
       // tablet sized device
       layoutSizeHint = YummConstants.TABLET_SIZED_DEVICE;
     }
@@ -124,6 +123,14 @@ public class MainActivity extends AppCompatActivity implements IRecipeCardListIt
     Intent intent = new Intent(MainActivity.this, RecipeCardDetailActivity.class);
 
     intent.putExtra(getString(R.string.recipe_type_key), recipe);
+
+    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.putInt(getString(R.string.selected_recipe_for_widget_key), recipe.getId());
+    editor.apply();
+
+    // Let the widget know to get the new ingredients
+    updateAppWidget(this);
 
     intent.putExtra(getString(R.string.layout_size_hint_key), layoutSizeHint);
 
