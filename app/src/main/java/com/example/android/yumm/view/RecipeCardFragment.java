@@ -1,6 +1,7 @@
 package com.example.android.yumm.view;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -63,7 +64,18 @@ public class RecipeCardFragment extends Fragment
 
     if(layoutSizeHint == YummConstants.TABLET_SIZED_DEVICE)
     {
-      recipeCardLayoutManager = new GridLayoutManager(getContext(), 3);
+      int numberOfColumns;
+      if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+      {
+        numberOfColumns = 3;
+      }
+      else
+      {
+        // portrait mode
+        numberOfColumns = 2;
+      }
+
+      recipeCardLayoutManager = new GridLayoutManager(getContext(), numberOfColumns);
     }
     else
     {
