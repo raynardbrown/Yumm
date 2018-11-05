@@ -2,6 +2,7 @@ package com.example.android.yumm.view;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +36,11 @@ public class RecipeCardIngredientFragment extends Fragment
 
     fragmentRecipeCardIngredientsBinding.rvRecipeCardIngredientFragment.setLayoutManager(recipeCardIngredientLayoutManager);
 
+    if(savedInstanceState != null)
+    {
+      recipeIngredientList = savedInstanceState.getParcelableArrayList(getString(R.string.recipe_ingredient_list_type_key));
+    }
+
     // initialize the list
     if(recipeIngredientList == null)
     {
@@ -50,20 +56,26 @@ public class RecipeCardIngredientFragment extends Fragment
     return fragmentRecipeCardIngredientsBinding.getRoot();
   }
 
+  @Override
+  public void onSaveInstanceState(Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+
+    outState.putParcelableArrayList(getString(R.string.recipe_ingredient_list_type_key), new ArrayList<Parcelable>(recipeIngredientList));
+  }
+
   public void setRecipeIngredientList(List<RecipeIngredient> recipeIngredientList)
   {
-    if(this.recipeIngredientList != null)
+    if(fragmentRecipeCardIngredientsBinding != null)
     {
-      this.recipeIngredientList.addAll(recipeIngredientList);
+      this.recipeIngredientList = recipeIngredientList;
+
+      adapter = new RecipeCardIngredientAdapter(this.recipeIngredientList);
+      updateUi();
     }
     else
     {
       this.recipeIngredientList = recipeIngredientList;
-    }
-
-    if(fragmentRecipeCardIngredientsBinding != null)
-    {
-      updateUi();
     }
   }
 
