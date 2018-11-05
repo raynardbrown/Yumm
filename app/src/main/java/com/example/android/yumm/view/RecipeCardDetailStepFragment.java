@@ -54,6 +54,7 @@ public class RecipeCardDetailStepFragment extends Fragment
 
   private boolean videoAvailable;
   private boolean imageAvailable;
+  private boolean playWhenReady;
 
   public RecipeCardDetailStepFragment()
   {
@@ -106,11 +107,14 @@ public class RecipeCardDetailStepFragment extends Fragment
 
       playerWindow = savedInstanceState.getInt(getString(R.string.recipe_step_video_playback_window_key), C.INDEX_UNSET);
       playerPosition = savedInstanceState.getLong(getString(R.string.recipe_step_video_playback_position_key), C.TIME_UNSET);
+      playWhenReady = savedInstanceState.getBoolean(getString(R.string.recipe_step_video_playback_play_when_ready_key));
     }
     else
     {
       // The default playback position and window
       setDefaultPlaybackPosition();
+
+      playWhenReady = true;
     }
 
     setupUi();
@@ -145,6 +149,7 @@ public class RecipeCardDetailStepFragment extends Fragment
 
     outState.putInt(getString(R.string.recipe_step_video_playback_window_key), playerWindow);
     outState.putLong(getString(R.string.recipe_step_video_playback_position_key), playerPosition);
+    outState.putBoolean(getString(R.string.recipe_step_video_playback_play_when_ready_key), playWhenReady);
   }
 
   public void setOrientation(int orientation)
@@ -172,6 +177,9 @@ public class RecipeCardDetailStepFragment extends Fragment
       stopVideoIfRunning();
       // also reset player position
       setDefaultPlaybackPosition();
+
+      playWhenReady = true;
+
       setupUi();
     }
   }
@@ -202,6 +210,7 @@ public class RecipeCardDetailStepFragment extends Fragment
     {
       playerWindow = simpleExoPlayer.getCurrentWindowIndex();
       playerPosition = simpleExoPlayer.getContentPosition();
+      playWhenReady = simpleExoPlayer.getPlayWhenReady();
       simpleExoPlayer.stop();
       simpleExoPlayer.release();
       simpleExoPlayer = null;
@@ -312,6 +321,13 @@ public class RecipeCardDetailStepFragment extends Fragment
       {
         fragmentRecipeCardDetailStepBinding.horizontalDivider.setVisibility(View.GONE);
       }
+
+      // remove the buttons too
+      if(orientation == Configuration.ORIENTATION_PORTRAIT)
+      {
+        fragmentRecipeCardDetailStepBinding.buttonPreviousStep.setVisibility(View.GONE);
+        fragmentRecipeCardDetailStepBinding.buttonNextStep.setVisibility(View.GONE);
+      }
     }
     else
     {
@@ -399,6 +415,6 @@ public class RecipeCardDetailStepFragment extends Fragment
     }
 
     simpleExoPlayer.prepare(mediaSource, !pastStartPosition, false);
-    simpleExoPlayer.setPlayWhenReady(true);
+    simpleExoPlayer.setPlayWhenReady(playWhenReady);
   }
 }
