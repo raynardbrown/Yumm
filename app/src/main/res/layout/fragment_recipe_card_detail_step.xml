@@ -9,7 +9,6 @@
     </data>
 
     <!-- Ensure the fragment is scrollable -->
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -56,7 +55,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/player_view"
             android:background="@android:color/darker_gray"/>
-        
+
         <TextView
             android:id="@+id/tv_recipe_card_detail_step"
             android:layout_width="0dp"
